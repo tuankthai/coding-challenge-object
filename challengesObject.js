@@ -72,11 +72,11 @@ function formatPerson(person) {
   let pronoun;
   if (person.gender == "female") {
     pronoun = "she"
-    
+
   } else {
     pronoun = "he"
   }
-    
+
   let result = `${person.name}, ${person.age}, ${pronoun}`;
   return result;
 }
@@ -98,7 +98,7 @@ console.log(formatPerson(person));
 // and for getting the account balance and transaction history.
 const bankAccount = {
   acct_nbr: 101010,
-    balance:  2000.00,
+  balance: 2000.00,
   trans_history: [
     {
       date: "10/23/23",
@@ -152,9 +152,62 @@ bankAccount.getTransHist()
 
 function analyzeTestScores(students) {
   // Add your code here
+  const test_result = {}
+
+  let highest = 0
+  let total = 0;
+  let lowest = students[0].test_scores;;
+
+  for (student in students) {
+
+    total += students[student].test_scores;
+    if (students[student].test_scores > highest) {
+      highest = students[student].test_scores;
+      // console.log(`"highest: ", ${highest}`)
+    }
+    if (students[student].test_scores < lowest) {
+      lowest = students[student].test_scores;
+      // console.log(`"lowest: ", ${lowest}`)
+    }
+  }
+
+  let avg = total / students.length
+  console.log(`"average score: ", ${avg}`);
+  console.log(`"highest: ", ${highest}`)
+  console.log(`"lowest: ", ${lowest}`)
+
+  test_result.highest = highest;
+  test_result.lowest = lowest;
+  test_result.avg = avg;
+
+  return test_result;
 }
 
-// 9. Create a function that takes an array of objects representing employees, with properties for name, job title, and salary. The function should return a new array of objects with properties for name, job title, salary, and a boolean value indicating whether the employee's salary is above or below the average salary.
+
+const students = [
+  {
+    name: "tom",
+    grade_level: "12",
+    test_scores: 67
+  },
+  {
+    name: "tom",
+    grade_level: "12",
+    test_scores: 85
+  },
+  {
+    name: "tom",
+    grade_level: "12",
+    test_scores: 97
+  },
+];
+
+console.log("\n after calling analyzeTestScores\n")
+console.table( analyzeTestScores(students) );
+
+// 9. Create a function that takes an array of objects representing employees, 
+//with properties for name, job title, and salary.
+//The function should return a new array of objects with properties for name, job title, salary, and a boolean value indicating whether the employee's salary is above or below the average salary.
 function analyzeEmployeeSalary(employees) {
   // Add your code here
 }
