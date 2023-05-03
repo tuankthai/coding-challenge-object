@@ -203,15 +203,152 @@ const students = [
 ];
 
 console.log("\n after calling analyzeTestScores\n")
-console.table( analyzeTestScores(students) );
+console.table(analyzeTestScores(students));
 
 // 9. Create a function that takes an array of objects representing employees, 
-//with properties for name, job title, and salary.
-//The function should return a new array of objects with properties for name, job title, salary, and a boolean value indicating whether the employee's salary is above or below the average salary.
+//with properties for name, job_title, and salary.
+//The function should return a new array of objects with properties for name, job_title, salary, 
+// and a boolean value indicating whether the employee's salary is above or below the average salary.
 function analyzeEmployeeSalary(employees) {
   // Add your code here
+  let total = 0;
+  for (employee in employees) {
+    total += employees[employee].salary
+  }
+
+  let avg = total / employees.length;
+  console.log(`"average salary: ", ${avg}`);
+
+  for (employee in employees) {
+    if (employees[employee].salary > avg) {
+      employees[employee].above_avg = true;
+    } else {
+      employees[employee].above_avg = false;
+    }
+  }
+  return employees;
+
+
 }
 
-// 10. Create an object that represents a weather forecast, with properties for date, temperature, humidity, and precipitation. Add methods to the object for getting the current weather conditions, predicting the weather for the next day based on historical data, and generating a formatted report with the weather forecast for the next week.
-const weatherForecast = {};
+const employees = [
+  {
+    name: "alex",
+    job_title: "sr engineer",
+    salary: 50000,
+  },
+  {
+    name: "emily",
+    job_title: "jr engineer",
+    salary: 40000,
+  },
+  {
+    name: "rosa",
+    job_title: "trainee",
+    salary: 20000,
+  },
+]
+
+console.log("\n before calling analyzeEmployeeSalary\n")
+console.table(employees)
+
+console.log("\n after calling analyzeEmployeeSalary\n")
+console.table(analyzeEmployeeSalary(employees))
+
+// 10. Create an object that represents a weather forecast, 
+//with properties for date, temperature, humidity, and precipitation.
+//Add methods to the object for getting the current weather conditions, 
+//predicting the weather for the next day based on historical data, 
+//and generating a formatted report with the weather forecast for the next week.
+
+const weatherForecast = {
+  days: [
+    {
+      date: "05/01/2023",
+      temperature: 50,
+      humidity: 51,
+      precipitation: 1.5,
+    },
+    {
+      date: "05/02/2023",
+      temperature: 60,
+      humidity: 51,
+      precipitation: 0.5,
+    },
+    {
+      date: "05/03/2023",
+      temperature: 55,
+      humidity: 51,
+      precipitation: 1.0,
+    },
+    {
+      date: "05/04/2023",
+      temperature: 70,
+      humidity: 51,
+      precipitation: 1.6,
+    },
+    {
+      date: "05/05/2023",
+      temperature: 67,
+      humidity: 51,
+      precipitation: 2.5,
+    },
+    {
+      date: "05/06/2023",
+      temperature: 45,
+      humidity: 51,
+      precipitation: 3.5,
+    },
+    {
+      date: "05/07/2023",
+      temperature: 55,
+      humidity: 51,
+      precipitation: 1.2,
+    },
+  ],
+  curr_weather() {
+    return this.days[this.days.length - 1];
+  },
+  next_day_weather() {
+    const next_day = {}
+    let total_temp = 0;
+    let total_humid = 0;
+    let total_prec = 0;
+    for (day in this.days) {
+      total_temp += this.days[day].temperature;
+      total_humid += this.days[day].humidity;
+      total_prec += this.days[day].precipitation;
+    }
+
+    next_day.avg_temp =   Math.floor(total_temp / this.days.length);
+    next_day.avg_humid =  Math.floor(total_humid / this.days.length);
+    next_day.avg_prec =   Math.floor(total_prec / this.days.length);
+
+    return next_day;
+  },
+  next_week_weather() {
+    const next_week = []
+    
+    for (day in this.days) {
+      let one_day = {}
+      one_day.temperature = this.days[day].temperature + Math.floor(Math.random() * 4);
+      one_day.humidity = this.days[day].humidity + Math.floor(Math.random() * 4);
+      one_day.precipitation = this.days[day].precipitation + Math.floor(Math.random() * 4);
+      console.log(one_day)
+      next_week.push(one_day)
+    }
+    return next_week;
+  },
+};
+
+
+console.log("\n after calling weatherForecast, curr_weather\n")
+console.table(weatherForecast.curr_weather());
+
+console.log("\n after calling weatherForecast, next_day_weather\n")
+console.table(weatherForecast.next_day_weather());
+
+console.log("\n after calling weatherForecast, next_week_weather\n")
+console.table(weatherForecast.next_week_weather());
+
 
